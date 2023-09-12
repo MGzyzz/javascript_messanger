@@ -5,7 +5,6 @@ $(document).ready(function() {
         url: apiUrl,
         method: 'GET',
         success: function(profile) {
-            console.log(profile)
             const username = $('#user_name');
             const email = $('#email')
             username.html(`${profile.lastName} ${profile.firstName}`)
@@ -18,17 +17,6 @@ $(document).ready(function() {
         },
         error: function(xhr, status, error) {
             console.error('Произошла ошибка:', status, error);
-        }
-    })
-    $.ajax({
-        url: 'http://146.185.154.90:8000/blog/john.doe@gmail.com/subscribe',
-        method: 'GET',
-        data: [],
-        success: function(subscribe) {
-            console.log('Check')
-            console.log(subscribe)
-            console.log('Check')
-
         }
     })
 
@@ -66,9 +54,6 @@ $(document).ready(function() {
     });
 
     $('#followUserConfirm').on('click', function() {
-        const followEmail = $('#followEmail').val();
-
-        // addUserByEmail(followEmail);
 
         $('#followUserModal').modal('hide');
     });
@@ -76,18 +61,5 @@ $(document).ready(function() {
     $('#editProfileButton').on('click', function() {
         $('#editProfileModal').modal('show');
     });
-
-    // function addUserByEmail(email) {
-    //     $.ajax({
-    //         url: `http://146.185.154.90:8000/blog/john.doe@gmail.com/subscribe`,
-    //         method: 'POST',
-    //         success: function(response) {
-    //             console.log('Пользователь успешно добавлен:', response);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             console.error('Произошла ошибка:', status, error);
-    //         }
-    //     });
-    // }
 
 })
