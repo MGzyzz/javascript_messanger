@@ -1,7 +1,7 @@
 $("#follow").submit(function(event) {
     event.preventDefault();
     email_user = $("#followEmail")
-    let formData = {email:email_user.val()}
+    let formData = {email:email_user.val().replace(/\s+/g, '')}
     $.ajax({
         type: "POST",
         url: 'http://146.185.154.90:8000/blog/john.doe@gmail.com/subscribe',
@@ -15,6 +15,6 @@ $("#follow").submit(function(event) {
             alert(`Вы подписались на\n
             ${email_user.val()}`)
         }
-        email_user.val('')
+        $("#followEmail").val('')
     })
 })
