@@ -1,7 +1,8 @@
+var userEmail = ''
+
 $(document).ready(function() {
     const apiUrl = 'http://146.185.154.90:8000/blog';
     const isUserRegister = false
-    let userEmail = ''
 
     function authenticateUser(email) {
         $.ajax({
@@ -9,6 +10,7 @@ $(document).ready(function() {
             method: 'GET',
             success: function(profile) {
                 if (profile) {
+                    console.log(profile)
                     $('#loginButton').hide();
                     $('#registerButton').hide();
                     $('#editButton').show();
@@ -19,6 +21,7 @@ $(document).ready(function() {
                     username.html(`${profile.lastName} ${profile.firstName}`);
                     userEmail.html(`${email}`);
                     $('#editButton').show();
+
 
                 } else {
                     $('#editButton').hide()
@@ -35,8 +38,9 @@ $(document).ready(function() {
 
     $('#loginSubmitButton').click(function() {
         const emailLogin = $('#loginEmail').val();
-        userEmail = emailLogin
         if (emailLogin.trim() !== '') {
+            console.log(emailLogin)
+            userEmail = emailLogin;
             authenticateUser(emailLogin);
         }
     });
@@ -53,12 +57,10 @@ $(document).ready(function() {
             method: 'GET',
             success: function(check) {
                 console.log(check);
-                if (check.success) {
-                    isUserRegister = true;
-                    updateUIBasedOnUserStatus(isUserRegister);
-                } else {
-                    console.error('Регистрация не выполнена:', check.error);
-                }
+                $('#registerModal').modal('hide');
+                userEmail = email;
+                authenticateUser(email);
+
             },
             error: function(xhr, status, error) {
                 console.error('Произошла ошибка при регистрации:', status, error);
@@ -66,6 +68,9 @@ $(document).ready(function() {
         });
     })
 
+    if (userEmail) {
+        authenticateUser(userEmail);
+    }
 
     $('#saveProfileButton').on('click', function() {
         const newFirstName = $('#first_name').val();
