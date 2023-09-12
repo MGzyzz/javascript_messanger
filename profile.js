@@ -1,24 +1,61 @@
 $(document).ready(function() {
-    const userEmail = 'john.doe@gmail.com';
+    const userEmail = 'check@mail.ru';
     const apiUrl = `http://146.185.154.90:8000/blog/${userEmail}/profile`;
+
+    $('#registerSubmitButton').click(function() {
+        const email = $('#registerEmail').val();
+
+        $.ajax({
+            url: `http://146.185.154.90:8000/blog/${email}/profile`,
+            method: 'GET',
+            success: function(check) {
+                console.log(check);
+                if (check.success) {
+                    isUserRegister = true;
+                    updateUIBasedOnUserStatus(isUserRegister);
+                } else {
+                    console.error('Регистрация не выполнена:', check.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Произошла ошибка при регистрации:', status, error);
+            }
+        });
+    })
+
+
+
     $.ajax({
         url: apiUrl,
         method: 'GET',
         success: function(profile) {
-            const username = $('#user_name');
-            const email = $('#email')
-            username.html(`${profile.lastName} ${profile.firstName}`)
-            if (profile) {
-                username.html(`${profile.lastName} ${profile.firstName}`);
-                email.html(`${profile.email}`)
+            const isUserRegister = false
+            if (isUserRegister) {
+                $('#loginButton').hide();
+                $('#registerButton').hide();
+                $('#editButton').show()
+                const username = $('#user_name');
+                const email = $('#email')
+                username.html(`${profile.lastName} ${profile.firstName}`)
+                if (profile) {
+                    username.html(`${profile.lastName} ${profile.firstName}`);
+                    email.html(`${profile.email}`)
+                    $('#editProfileButton').show()
+                } else {
+                    console.error('Профиль не найден.');
+                }
             } else {
-                console.error('Профиль не найден.');
+                $('#editButton').hide()
+                $('#loginButton').show();
+                $('#registerButton').show();
             }
+
         },
         error: function(xhr, status, error) {
             console.error('Произошла ошибка:', status, error);
         }
     })
+
 
     $('#saveProfileButton').on('click', function() {
         const newFirstName = $('#first_name').val();
@@ -47,6 +84,14 @@ $(document).ready(function() {
                 console.error('Произошла ошибка:', status, error);
             }
         })
+    });
+
+    $('#registerButton').click(function() {
+        $('#registerModal').modal('show');
+    });
+
+    $('#loginButton').click(function() {
+        $('#loginModal').modal('show');
     });
 
     $('#followUserButton').on('click', function() {
