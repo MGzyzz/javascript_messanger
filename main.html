@@ -16,7 +16,12 @@
 <body>
     <div class="container mt-5">
         <div class="header d-flex align-items-center justify-content-between">
-            <h1 class="#" id="user_name"></h1>
+            <div class="d-flex align-items-center">
+                <h1 class="#" id="user_name">User Name</h1>
+                <button class="text-decoration-none border-0" style="background: none" id="editProfileButton">
+                    <i class="bi bi-pencil-square ml-2"></i>
+                </button>
+            </div>
             <button class="btn btn-info">Follow User</button>
         </div>
         <div class="main">
@@ -26,9 +31,39 @@
                 <button type="submit" class="btn btn-success mx-2">Send</button>
             </div>
         </div>
-
         <hr>
     </div>
+
+    <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control" id="first_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control" id="last_name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -29,3 +29,7 @@ $(document).ready(function() {
         }
     })
 })
+
+document.getElementById('editProfileButton').addEventListener('click', function() {
+    $('#editProfileModal').modal('show');
+});
