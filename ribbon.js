@@ -19,7 +19,7 @@ function pageUpdate() {
 
 
 const intervalId = setInterval(
-    pageUpdate(),5000)
+    pageUpdate,5000)
 
 
 $("#message-form").submit(function(event) {
