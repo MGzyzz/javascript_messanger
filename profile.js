@@ -28,6 +28,34 @@ $(document).ready(function() {
             console.log(subscribe)
         }
     })
+    $('#saveProfileButton').on('click', function() {
+        const newFirstName = $('#first_name').val();
+        const newLastName = $('#last_name').val();
+
+        if (newFirstName.trim() === '' || newLastName.trim() === '') {
+            alert('Пожалуйста, заполните оба поля!');
+            return;
+        }
+
+        const newData = {
+            firstName: newFirstName,
+            lastName: newLastName
+        };
+
+        $.ajax({
+            url: apiUrl,
+            method: 'Post',
+            data: newData,
+            success: function(response) {
+                console.log(`Данные успешно обработаны: ${response}`)
+                $('#editProdileModal').hide()
+                location.reload()
+            },
+            error: function(xhr, status, erorr) {
+                console.error('Произошла ошибка:', status, error);
+            }
+        })
+    });
 })
 
 document.getElementById('editProfileButton').addEventListener('click', function() {
