@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="profile.js"></script>
     <script defer src="ribbon.js"></script>
-    <script defer src="script.js"></script>
+    <script defer src="subscrip.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="ribbon.css">
@@ -36,14 +36,17 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="followEmail">Email:</label>
-                                <input type="text" class="form-control" id="followEmail">
+                                <form id="follow" method="post" action="http://146.185.154.90:8000/blog/john.doe@gmail.com/subscribe">
+                                    <label for="followEmail">Email:</label>
+                                    <input type="text" class="form-control" id="followEmail">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="followUserConfirm">Follow</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="followUserConfirm">Follow</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

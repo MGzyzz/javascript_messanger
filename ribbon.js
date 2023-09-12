@@ -4,11 +4,10 @@ function pageUpdate() {
     }).then(data => {
         data = data.slice(-20)
         post = $('.container-post').empty()
-        console.log(data)
         for(let i = data.length-1; i >= 0; i--){
             card = $("<div class='post'>")
             card.append(
-                `<p class="post-name">${data[i].user.email} said:</p>
+                `<p class="post-name">${data[i].user.firstName} - ${data[i].user.email} said:</p>
                 <p class="post-content">${data[i].message
                 }</p>`
                 )
