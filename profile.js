@@ -1,12 +1,55 @@
 $(document).ready(function() {
-    const userEmail = 'check@mail.ru';
-    const apiUrl = `http://146.185.154.90:8000/blog/${userEmail}/profile`;
+    const apiUrl = 'http://146.185.154.90:8000/blog';
+    const isUserRegister = false
+    let userEmail = ''
+
+    function authenticateUser(email) {
+        $.ajax({
+            url: `${apiUrl}/${email}/profile`,
+            method: 'GET',
+            success: function(profile) {
+                if (profile) {
+                    $('#loginButton').hide();
+                    $('#registerButton').hide();
+                    $('#editButton').show();
+                    $('#loginModal').modal('hide');
+                    const username = $('#user_name');
+                    const userEmail = $('#email');
+
+                    username.html(`${profile.lastName} ${profile.firstName}`);
+                    userEmail.html(`${email}`);
+                    $('#editButton').show();
+
+                } else {
+                    $('#editButton').hide()
+                    $('#loginButton').show();
+                    $('#registerButton').show();
+                    console.error('Профиль не найден.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Произошла ошибка при аутентификации:', status, error);
+            }
+        });
+    }
+
+    $('#loginSubmitButton').click(function() {
+        const emailLogin = $('#loginEmail').val();
+        userEmail = emailLogin
+        if (emailLogin.trim() !== '') {
+            authenticateUser(emailLogin);
+        }
+    });
+
+    $('#registerButton').click(function() {
+        $('#registerModal').modal('show');
+    });
 
     $('#registerSubmitButton').click(function() {
         const email = $('#registerEmail').val();
 
         $.ajax({
-            url: `http://146.185.154.90:8000/blog/${email}/profile`,
+            url: `${apiUrl}/${email}/profile`,
             method: 'GET',
             success: function(check) {
                 console.log(check);
@@ -24,39 +67,6 @@ $(document).ready(function() {
     })
 
 
-
-    $.ajax({
-        url: apiUrl,
-        method: 'GET',
-        success: function(profile) {
-            const isUserRegister = false
-            if (isUserRegister) {
-                $('#loginButton').hide();
-                $('#registerButton').hide();
-                $('#editButton').show()
-                const username = $('#user_name');
-                const email = $('#email')
-                username.html(`${profile.lastName} ${profile.firstName}`)
-                if (profile) {
-                    username.html(`${profile.lastName} ${profile.firstName}`);
-                    email.html(`${profile.email}`)
-                    $('#editProfileButton').show()
-                } else {
-                    console.error('Профиль не найден.');
-                }
-            } else {
-                $('#editButton').hide()
-                $('#loginButton').show();
-                $('#registerButton').show();
-            }
-
-        },
-        error: function(xhr, status, error) {
-            console.error('Произошла ошибка:', status, error);
-        }
-    })
-
-
     $('#saveProfileButton').on('click', function() {
         const newFirstName = $('#first_name').val();
         const newLastName = $('#last_name').val();
@@ -71,20 +81,24 @@ $(document).ready(function() {
             lastName: newLastName
         };
 
+        editProfile(userEmail, newData);
+    })
+
+    function editProfile(email, data) {
         $.ajax({
-            url: apiUrl,
+            url: `${apiUrl}/${email}/profile`,
             method: 'POST',
-            data: newData,
+            data: data,
             success: function(response) {
                 console.log(`Данные успешно обработаны: ${response}`)
-                $('#editProdileModal').hide()
-                location.reload()
+                $('#user_name').html(`${data.firstName} ${data.lastName}`);
+                $('#editProfileModal').modal('hide')
             },
             error: function(xhr, status, erorr) {
                 console.error('Произошла ошибка:', status, error);
             }
         })
-    });
+    }
 
     $('#registerButton').click(function() {
         $('#registerModal').modal('show');
@@ -106,5 +120,4 @@ $(document).ready(function() {
     $('#editProfileButton').on('click', function() {
         $('#editProfileModal').modal('show');
     });
-
 })
