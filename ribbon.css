@@ -29,13 +29,15 @@
 }
 
 #message-form {
+    margin: auto;
     text-align: left;
     display: flex;
 }
 
-textarea {
+.input {
+    margin-top: 5px;
     height: 20px;
-    width: 90%;
+    width: 500px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -44,8 +46,8 @@ textarea {
     display: inline-block; 
 }
 
-button {
-    padding: 10px 20px;
+.button {
+    padding: 3px 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -57,7 +59,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #02761a;
     color: #000;
 }
 
