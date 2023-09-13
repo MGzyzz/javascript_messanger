@@ -25,7 +25,7 @@ function pageUpdate() {
                 card.append(
                     `<p class="post-name">${data[i].user.lastName} ${data[i].user.firstName} said:</p>
                     <p class="post-content">${data[i].message}</p>
-                    <p class="post-content">${parsDate(data[i].datetime)}</p>`
+                    <p class="post-content" style="text-align: end;">${parsDate(data[i].datetime)}</p>`
                 )
                 post.append(card)
             }
